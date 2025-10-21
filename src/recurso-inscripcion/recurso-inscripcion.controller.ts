@@ -1,34 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe } from '@nestjs/common';
 import { RecursoInscripcionService } from './recurso-inscripcion.service';
 import { CreateRecursoInscripcionDto } from './dto/create-recurso-inscripcion.dto';
 import { UpdateRecursoInscripcionDto } from './dto/update-recurso-inscripcion.dto';
 
-@Controller('recurso-inscripcion')
+@Controller('inscripciones')
 export class RecursoInscripcionController {
-  constructor(private readonly recursoInscripcionService: RecursoInscripcionService) {}
+  constructor(private readonly service: RecursoInscripcionService) {}
 
-  @Post()
-  create(@Body() createRecursoInscripcionDto: CreateRecursoInscripcionDto) {
-    return this.recursoInscripcionService.create(createRecursoInscripcionDto);
+  @Post() create(@Body() dto: CreateRecursoInscripcionDto) { return this.service.create(dto); }
+  @Get() findAll(@Query('pagina') p=1,@Query('limite') l=10,@Query('estudianteId') eId?:string,@Query('cursoId') cId?:string){
+    return this.service.findAll(+p,+l, eId?+eId:undefined, cId?+cId:undefined);
   }
-
-  @Get()
-  findAll() {
-    return this.recursoInscripcionService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.recursoInscripcionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecursoInscripcionDto: UpdateRecursoInscripcionDto) {
-    return this.recursoInscripcionService.update(+id, updateRecursoInscripcionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.recursoInscripcionService.remove(+id);
-  }
+  @Get(':id') findOne(@Param('id', ParseIntPipe) id:number){ return this.service.findOne(id); }
+  @Patch(':id') update(@Param('id', ParseIntPipe) id:number,@Body() dto:UpdateRecursoInscripcionDto){ return this.service.update(id,dto); }
+  @Delete(':id') remove(@Param('id', ParseIntPipe) id:number){ return this.service.remove(id); }
 }

@@ -1,34 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe } from '@nestjs/common';
 import { RecursoTituloService } from './recurso-titulo.service';
 import { CreateRecursoTituloDto } from './dto/create-recurso-titulo.dto';
 import { UpdateRecursoTituloDto } from './dto/update-recurso-titulo.dto';
 
-@Controller('recurso-titulo')
+@Controller('titulos')
 export class RecursoTituloController {
-  constructor(private readonly recursoTituloService: RecursoTituloService) {}
+  constructor(private readonly service: RecursoTituloService) {}
 
-  @Post()
-  create(@Body() createRecursoTituloDto: CreateRecursoTituloDto) {
-    return this.recursoTituloService.create(createRecursoTituloDto);
+  @Post() create(@Body() dto: CreateRecursoTituloDto) { return this.service.create(dto); }
+  @Get() findAll(@Query('pagina') p=1,@Query('limite') l=10,@Query('profesorId') profesorId?:string){
+    return this.service.findAll(+p,+l, profesorId?+profesorId:undefined);
   }
-
-  @Get()
-  findAll() {
-    return this.recursoTituloService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.recursoTituloService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecursoTituloDto: UpdateRecursoTituloDto) {
-    return this.recursoTituloService.update(+id, updateRecursoTituloDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.recursoTituloService.remove(+id);
-  }
+  @Get(':id') findOne(@Param('id', ParseIntPipe) id:number){ return this.service.findOne(id); }
+  @Patch(':id') update(@Param('id', ParseIntPipe) id:number,@Body() dto:UpdateRecursoTituloDto){ return this.service.update(id,dto); }
+  @Delete(':id') remove(@Param('id', ParseIntPipe) id:number){ return this.service.remove(id); }
 }

@@ -1,34 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe } from '@nestjs/common';
 import { RecursoProfesorService } from './recurso-profesor.service';
 import { CreateRecursoProfesorDto } from './dto/create-recurso-profesor.dto';
 import { UpdateRecursoProfesorDto } from './dto/update-recurso-profesor.dto';
 
-@Controller('recurso-profesor')
+@Controller('profesores')
 export class RecursoProfesorController {
-  constructor(private readonly recursoProfesorService: RecursoProfesorService) {}
+  constructor(private readonly service: RecursoProfesorService) { }
 
-  @Post()
-  create(@Body() createRecursoProfesorDto: CreateRecursoProfesorDto) {
-    return this.recursoProfesorService.create(createRecursoProfesorDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.recursoProfesorService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.recursoProfesorService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecursoProfesorDto: UpdateRecursoProfesorDto) {
-    return this.recursoProfesorService.update(+id, updateRecursoProfesorDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.recursoProfesorService.remove(+id);
-  }
+  @Post() create(@Body() dto: CreateRecursoProfesorDto) { return this.service.create(dto); }
+  @Get() findAll(@Query('pagina') p = 1, @Query('limite') l = 10) { return this.service.findAll(+p, +l); }
+  @Get(':id') findOne(@Param('id', ParseIntPipe) id: number) { return this.service.findOne(id); }
+  @Patch(':id') update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateRecursoProfesorDto) { return this.service.update(id, dto); }
+  @Delete(':id') remove(@Param('id', ParseIntPipe) id: number) { return this.service.remove(id); }
 }
