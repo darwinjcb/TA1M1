@@ -3,7 +3,7 @@ import { RecursoInscripcionService } from './recurso-inscripcion.service';
 import { CreateRecursoInscripcionDto } from './dto/create-recurso-inscripcion.dto';
 import { UpdateRecursoInscripcionDto } from './dto/update-recurso-inscripcion.dto';
 
-@Controller('inscripciones')
+@Controller('controladorInscripciones')
 export class RecursoInscripcionController {
   constructor(private readonly service: RecursoInscripcionService) {}
 

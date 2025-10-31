@@ -1,5 +1,5 @@
 // src/recurso-prisma/recurso-prisma.service.ts
-import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common';
+import { INestApplication, Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from 'generated/prisma';
 
 

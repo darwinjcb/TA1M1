@@ -3,7 +3,7 @@ import { RecursoProfesorService } from './recurso-profesor.service';
 import { CreateRecursoProfesorDto } from './dto/create-recurso-profesor.dto';
 import { UpdateRecursoProfesorDto } from './dto/update-recurso-profesor.dto';
 
-@Controller('profesores')
+@Controller('controladorProfesores')
 export class RecursoProfesorController {
   constructor(private readonly service: RecursoProfesorService) { }
 

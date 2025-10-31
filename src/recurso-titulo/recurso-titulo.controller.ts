@@ -3,7 +3,7 @@ import { RecursoTituloService } from './recurso-titulo.service';
 import { CreateRecursoTituloDto } from './dto/create-recurso-titulo.dto';
 import { UpdateRecursoTituloDto } from './dto/update-recurso-titulo.dto';
 
-@Controller('titulos')
+@Controller('controladorTitulos')
 export class RecursoTituloController {
   constructor(private readonly service: RecursoTituloService) {}
 

@@ -70,7 +70,7 @@ model Curso {
   id            Int           @id @default(autoincrement())
   materiaId     Int
   profesorId    Int
-  periodo       String // ej: "2025-1"
+  periodo       String // "2025-1"
   seccion       String? // ej: "A"
   creadoEn      DateTime      @default(now())
   actualizadoEn DateTime      @updatedAt

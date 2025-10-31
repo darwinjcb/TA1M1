@@ -3,7 +3,7 @@ import { RecursoEstudianteService } from './recurso-estudiante.service';
 import { CreateRecursoEstudianteDto } from './dto/create-recurso-estudiante.dto';
 import { UpdateRecursoEstudianteDto } from './dto/update-recurso-estudiante.dto';
 
-@Controller('estudiantes')
+@Controller('controladorEstudiantes')
 export class RecursoEstudianteController {
   constructor(private readonly service: RecursoEstudianteService) { }
 

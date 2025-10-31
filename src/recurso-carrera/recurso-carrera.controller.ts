@@ -3,7 +3,7 @@ import { RecursoCarreraService } from './recurso-carrera.service';
 import { CreateRecursoCarreraDto } from './dto/create-recurso-carrera.dto';
 import { UpdateRecursoCarreraDto } from './dto/update-recurso-carrera.dto';
 
-@Controller('carreras')
+@Controller('controladorCarreras')
 export class RecursoCarreraController {
   constructor(private readonly service: RecursoCarreraService) {}
 
