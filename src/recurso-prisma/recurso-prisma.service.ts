@@ -1,12 +1,17 @@
-// src/recurso-prisma/recurso-prisma.service.ts
-import { INestApplication, Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { PrismaClient } from 'generated/prisma';
-
+import 'dotenv/config'
+import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
+import { PrismaClient } from '@prisma/client'
+import { PrismaPg } from '@prisma/adapter-pg'
 
 @Injectable()
-export class RecursoPrismaService extends PrismaClient implements OnModuleInit {
-  async onModuleInit() {
-    await this.$connect();
+export class RecursoPrismaService extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy {
+  constructor() {
+    const connectionString = process.env.DATABASE_URL
+    if (!connectionString) throw new Error('DATABASE_URL no está definido')
+    super({ adapter: new PrismaPg({ connectionString }) })
   }
 
+  async onModuleInit() { await this.$connect() }
+  async onModuleDestroy() { await this.$disconnect() }
 }
