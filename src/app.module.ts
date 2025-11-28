@@ -8,6 +8,8 @@ import { RecursoCarreraModule } from './recurso-carrera/recurso-carrera.module';
 import { RecursoMateriaModule } from './recurso-materia/recurso-materia.module';
 import { RecursoCursoModule } from './recurso-curso/recurso-curso.module';
 import { RecursoInscripcionModule } from './recurso-inscripcion/recurso-inscripcion.module';
+import { ModuloAuthModule } from './modulo-auth/modulo-auth.module';
+import { ServicioAuthService } from './servicio-auth/servicio-auth.service';
 
 @Module({
   imports: [
@@ -20,6 +22,9 @@ import { RecursoInscripcionModule } from './recurso-inscripcion/recurso-inscripc
     RecursoMateriaModule,
     RecursoCursoModule,
     RecursoInscripcionModule,
+    ModuloAuthModule,
+    
   ],
+  providers: [ServicioAuthService],
 })
 export class AppModule {}
